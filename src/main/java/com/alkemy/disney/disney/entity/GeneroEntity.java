@@ -16,9 +16,6 @@ public class GeneroEntity {
     @Column(name = "id_genero")
     private Long idGenero;
 
-    @Column(name = "fecha_creacion")
-    private String fechaCreacion;
-
     private String nombre;
     private String imagen;
 
