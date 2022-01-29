@@ -1,6 +1,5 @@
 package com.alkemy.disney.disney.dto;
 
-import com.alkemy.disney.disney.entity.Movie;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,13 +15,13 @@ public class CharcterDTO {
 
     private String name;
 
-    private Byte age;
+    private Integer age;
 
     private Double weight;
 
     private String history;
 
-    private List<Movie> movies;
+    private List<MovieDTO> movies;
 
     private boolean deleted = Boolean.FALSE;
 

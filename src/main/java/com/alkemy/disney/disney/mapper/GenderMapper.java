@@ -14,7 +14,6 @@ public class GenderMapper {
         Gender entity = new Gender();
         entity.setName(dto.getName());
         entity.setImage(dto.getImage());
-        entity.setMovies(dto.getMovies());
         return entity;
     }
 
@@ -23,7 +22,6 @@ public class GenderMapper {
         dto.setId(entity.getId());
         dto.setName(entity.getName());
         dto.setImage(entity.getImage());
-        dto.setMovies(entity.getMovies());
         return dto;
     }
 
@@ -34,4 +32,6 @@ public class GenderMapper {
         }
         return dtos;
     }
+
+
 }

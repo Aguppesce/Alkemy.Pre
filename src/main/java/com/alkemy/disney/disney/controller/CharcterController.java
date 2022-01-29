@@ -18,38 +18,43 @@ public class CharcterController {
     private CharcterService charcterService;
 
     @GetMapping
-    public ResponseEntity<List<CharcterDTO>> getDetailsByFilters(
-            @RequestParam(required = false) String name,
-            @RequestParam(required = false) Integer age,
-            @RequestParam(required = false) Double weight,
-            @RequestParam(required = false) Set<Long> movies,
-            @RequestParam(required = false, defaultValue = "ASC") String order
-    ){
-        List<CharcterDTO> charcters = this.charcterService.getByFilters(name, age, weight, movies, order);
-        return ResponseEntity.ok(charcters);
-    }
-    @GetMapping
     public ResponseEntity<List<CharcterDTO>> getAllCharcters(){
-        List<CharcterDTO> charcters = this.charcterService.getAllCharcters();
-        return ResponseEntity.ok().body(charcters);
+        List<CharcterDTO> dtos = charcterService.getAllCharcters();
+        return ResponseEntity.ok().body(dtos);
+    }
+
+    @GetMapping("/details/{id}")
+    public ResponseEntity<CharcterDTO> getDetailsById(@PathVariable Long id){
+        CharcterDTO dto = charcterService.getCharcterDetails(id);
+        return ResponseEntity.status(HttpStatus.OK).body(dto);
     }
 
     @PostMapping("/save")
     public ResponseEntity<CharcterDTO> save(@RequestBody CharcterDTO dto){
-        CharcterDTO charcterSave = charcterService.save(dto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(charcterSave);
+        CharcterDTO saveCharcter = charcterService.save(dto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(saveCharcter);
     }
 
     @PutMapping("/{id}/update")
     public ResponseEntity<CharcterDTO> udpate(@PathVariable Long id, @RequestBody CharcterDTO dto){
         CharcterDTO result = charcterService.update(id, dto);
-        return ResponseEntity.ok().body(result);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(result);
     }
 
     @DeleteMapping("{id}/delete")
     public ResponseEntity delete(@PathVariable Long id){
-        this.charcterService.delete(id);
+        charcterService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @GetMapping("/filters")
+    public ResponseEntity<List<CharcterDTO>> getDetailsByFilters(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) Integer age,
+            @RequestParam(required = false) Set<Long> movies
+    ){
+        List<CharcterDTO> charcters = this.charcterService.getByFilters(name, age, movies);
+        return ResponseEntity.ok().body(charcters);
     }
 
 }

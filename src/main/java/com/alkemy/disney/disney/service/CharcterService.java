@@ -1,8 +1,10 @@
 package com.alkemy.disney.disney.service;
 
+import com.alkemy.disney.disney.dto.CharcterBasicDTO;
 import com.alkemy.disney.disney.dto.CharcterDTO;
 
 import java.util.List;
+import java.util.Set;
 
 public interface CharcterService {
 
@@ -12,9 +14,9 @@ public interface CharcterService {
 
     void delete(Long id);
 
-    CharcterDTO getCharcterById(Long id);
-
-    CharcterDTO getCharcterByName(String name);
+    CharcterDTO getCharcterDetails(Long id);
 
     CharcterDTO update(Long id, CharcterDTO dto);
+
+    List<CharcterDTO> getByFilters(String name, Integer age, Set<Long> movies);
 }

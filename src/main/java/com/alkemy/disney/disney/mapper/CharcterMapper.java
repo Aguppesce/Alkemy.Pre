@@ -2,8 +2,8 @@ package com.alkemy.disney.disney.mapper;
 
 import com.alkemy.disney.disney.dto.CharcterBasicDTO;
 import com.alkemy.disney.disney.dto.CharcterDTO;
-import com.alkemy.disney.disney.dto.CharcterDetailedDTO;
 import com.alkemy.disney.disney.entity.Charcter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -12,70 +12,64 @@ import java.util.List;
 @Component
 public class CharcterMapper {
 
+    @Autowired
+    private MovieMapper movieMapper;
+
     public Charcter charcterDTO2Entity(CharcterDTO dto){
-        Charcter charcterEntity = new Charcter();
-        charcterEntity.setName(dto.getName());
-        charcterEntity.setAge(dto.getAge());
-        charcterEntity.setImage(dto.getImage());
-        charcterEntity.setHistory(dto.getHistory());
-        charcterEntity.setWeight(dto.getWeight());
-        charcterEntity.setMovies(dto.getMovies());
-        return charcterEntity;
+        Charcter entity = new Charcter();
+        entity.setName(dto.getName());
+        entity.setAge(dto.getAge());
+        entity.setImage(dto.getImage());
+        entity.setHistory(dto.getHistory());
+        entity.setWeight(dto.getWeight());
+        return entity;
     }
 
-    public CharcterDTO charcterEntity2DTO(Charcter entity){
-        CharcterDTO charcterDTO = new CharcterDTO();
-        charcterDTO.setId(entity.getId());
-        charcterDTO.setName(entity.getName());
-        charcterDTO.setAge(entity.getAge());
-        charcterDTO.setImage(entity.getImage());
-        charcterDTO.setHistory(entity.getHistory());
-        charcterDTO.setWeight(entity.getWeight());
-        charcterDTO.setMovies(entity.getMovies());
+    public Charcter updateCharcterDTO2Entity(Charcter entity, CharcterDTO dto){
+        entity.setName(dto.getName());
+        entity.setImage(dto.getImage());
+        entity.setAge(dto.getAge());
+        entity.setWeight(dto.getWeight());
+        entity.setHistory(dto.getHistory());
 
-        return charcterDTO;
+        return entity;
     }
 
-    public List<CharcterDTO> charcterEntityList2DTOList(List<Charcter> entities){
-        List<CharcterDTO> dtos = new ArrayList<>();
-        for (Charcter entity: entities){
-            dtos.add(this.charcterEntity2DTO(entity));
+    public CharcterDTO charcterEntity2DTO(Charcter entity, boolean chargeMovies){
+        CharcterDTO dto = new CharcterDTO();
+        dto.setId(entity.getId());
+        dto.setName(entity.getName());
+        dto.setAge(entity.getAge());
+        dto.setImage(entity.getImage());
+        dto.setHistory(entity.getHistory());
+        dto.setWeight(entity.getWeight());
+        if(chargeMovies){
+            dto.setMovies(movieMapper.movieEntityList2DTOList(entity.getMovies(), false));
         }
+        return dto;
+    }
 
+    public List<CharcterDTO> charcterEntityList2DTOList(List<Charcter> entities, boolean chargeMovies){
+        List<CharcterDTO> dtos = new ArrayList<>();
+        for(Charcter entity: entities){
+            dtos.add(charcterEntity2DTO(entity, chargeMovies));
+        }
         return dtos;
     }
 
-    public CharcterBasicDTO charcterEntity2CharcterBasicDTO(Charcter charcter){
-        CharcterBasicDTO basic = new CharcterBasicDTO();
-        basic.setImage(charcter.getImage());
-        basic.setName(charcter.getName());
-        return basic;
+    public CharcterBasicDTO charcterEntity2BasicDTO(Charcter entity){
+        CharcterBasicDTO basicDTO = new CharcterBasicDTO();
+        basicDTO.setId(entity.getId());
+        basicDTO.setName(entity.getImage());
+        basicDTO.setName(entity.getName());
+        return basicDTO;
     }
 
-    public List<CharcterBasicDTO> charcterEntityList2CharcterBasicList(List<Charcter> charcters){
-        List<CharcterBasicDTO> charctersBasic = new ArrayList<>();
-        for(Charcter charcter: charcters){
-            charctersBasic.add(charcterEntity2CharcterBasicDTO(charcter));
+    public List<CharcterBasicDTO> charcterEntityList2BasicDTOList(List<Charcter> entities){
+        List<CharcterBasicDTO> basicDTOS = new ArrayList<>();
+        for(Charcter entity: entities){
+            basicDTOS.add(charcterEntity2BasicDTO(entity));
         }
-        return charctersBasic;
-    }
-
-    public CharcterDetailedDTO charcterEntity2CharcterDetailedDTO(Charcter charcter){
-        CharcterDetailedDTO charcterDetailed = new CharcterDetailedDTO();
-        charcterDetailed.setId(charcter.getId());
-        charcterDetailed.setMovies(charcter.getMovies());
-        charcterDetailed.setHistory(charcter.getHistory());
-        charcterDetailed.setWeight(charcter.getWeight());
-        charcterDetailed.setImage(charcter.getImage());
-        charcterDetailed.setAge(charcter.getAge());
-        return charcterDetailed;
-    }
-
-    public List<CharcterDetailedDTO> charcterEntity2CharcterDetailedDTOList(List<Charcter> charcters){
-        List<CharcterDetailedDTO> charctersDetailed = new ArrayList<>();
-        for(Charcter charcter: charcters){
-            charctersDetailed.add(charcterEntity2CharcterDetailedDTO(charcter));
-            return charctersDetailed;
-        }
+        return basicDTOS;
     }
 }

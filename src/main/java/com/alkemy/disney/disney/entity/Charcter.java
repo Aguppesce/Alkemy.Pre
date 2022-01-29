@@ -19,7 +19,7 @@ public class Charcter {
 
     private String image;
     private String name;
-    private Byte age;
+    private Integer age;
     private Double weight;
     private String history;
     private Boolean deleted = Boolean.FALSE;

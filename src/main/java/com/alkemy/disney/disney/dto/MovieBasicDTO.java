@@ -5,10 +5,11 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CharcterBasicDTO {
+public class MovieBasicDTO {
 
     private Long id;
-    private String name;
     private String image;
+    private String title;
+    private String createDate;
 
 }

@@ -33,8 +33,11 @@ public class Movie {
     @ManyToMany(mappedBy = "movies", fetch = FetchType.EAGER)
     private List<Charcter> charcters = new ArrayList<>();
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "fk_gender")
+    @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE} )
+    @JoinColumn(name = "fk_gender", insertable = false, updatable = false)
     private Gender gender;
+
+    @Column(name = "id_gender", nullable = false)
+    private Long idGender;
 
 }
