@@ -27,11 +27,14 @@ public class Movie {
     @DateTimeFormat(pattern = "yyyy/MM/dd")
     private LocalDate createDate;
 
-    private Integer calification;
+    private Byte calification;
     private Boolean deleted = Boolean.FALSE;
 
-    @ManyToMany(mappedBy = "movies", fetch = FetchType.EAGER)
-    private List<Charcter> charcters = new ArrayList<>();
+    @ManyToMany(cascade= {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "movies_charcters",
+            joinColumns = @JoinColumn(name = "id_movie"),
+            inverseJoinColumns = @JoinColumn(name = "id_charcter"))
+    private List<Charcter> movieCharcters = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE} )
     @JoinColumn(name = "fk_gender", insertable = false, updatable = false)

@@ -19,7 +19,7 @@ public class Charcter {
 
     private String image;
     private String name;
-    private Integer age;
+    private Byte age;
     private Double weight;
     private String history;
     private Boolean deleted = Boolean.FALSE;
@@ -28,10 +28,8 @@ public class Charcter {
             CascadeType.PERSIST,
             CascadeType.MERGE
     })
-    @JoinTable(name = "movies_charcters",
-            joinColumns = @JoinColumn(name = "id_charcter"),
-            inverseJoinColumns = @JoinColumn(name = "id_movie"))
-    private List<Movie> movies;
+    @Column(name="charcters_movies")
+    private List<Movie> charctersMovies;
 
 
 }
