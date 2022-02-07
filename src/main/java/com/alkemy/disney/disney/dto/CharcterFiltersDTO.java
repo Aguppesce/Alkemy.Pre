@@ -15,7 +15,7 @@ import java.util.Set;
 public class CharcterFiltersDTO {
 
     private String name;
-    private Integer age;
-    private Set<Long> movies;
+    private Byte age;
+    private Set<Long> charcterMovies;
 
 }

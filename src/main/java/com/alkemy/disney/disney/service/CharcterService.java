@@ -18,5 +18,5 @@ public interface CharcterService {
 
     CharcterDTO update(Long id, CharcterDTO dto);
 
-    List<CharcterDTO> getByFilters(String name, Integer age, Set<Long> movies);
+    List<CharcterDTO> getByFilters(String name, Byte age, Set<Long> movies);
 }

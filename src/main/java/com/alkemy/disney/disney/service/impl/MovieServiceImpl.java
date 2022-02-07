@@ -40,7 +40,7 @@ public class MovieServiceImpl implements MovieService {
     public void saveCharcterOnMovie(Long idMovie, Long idCharcter){
         Movie saveMovie = this.handleFindById(idMovie);
         Character saveCharcter = charcterService.handleFindById(idCharcter);
-        saveMovie.getCharcters().size();
+        saveMovie.getMovieCharcters().size();
         saveMovie.saveCharcterOnMovie(saveCharcter);
         movieRepository.save(saveMovie);
     }

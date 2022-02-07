@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("genders")
+@RequestMapping("/genders")
 public class GenderController {
 
     @Autowired
@@ -29,8 +29,6 @@ public class GenderController {
         GenderDTO genderSave = genderService.save(gender);
         return ResponseEntity.status(HttpStatus.CREATED).body(genderSave);
     }
-
-    //TODO GetMapping("/{id}")
 
     @PutMapping("/{id}/update")
     public ResponseEntity<GenderDTO> update(@PathVariable Long id, @RequestBody GenderDTO gender){

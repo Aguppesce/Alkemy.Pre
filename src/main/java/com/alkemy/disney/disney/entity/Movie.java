@@ -30,17 +30,32 @@ public class Movie {
     private Byte calification;
     private Boolean deleted = Boolean.FALSE;
 
-    @ManyToMany(cascade= {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(cascade= {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
     @JoinTable(name = "movies_charcters",
             joinColumns = @JoinColumn(name = "id_movie"),
             inverseJoinColumns = @JoinColumn(name = "id_charcter"))
     private List<Charcter> movieCharcters = new ArrayList<>();
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE} )
-    @JoinColumn(name = "fk_gender", insertable = false, updatable = false)
-    private Gender gender;
+    @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE} )
+    @JoinTable(name = "movie_gender",
+            joinColumns = @JoinColumn(name = "id_movie"),
+            inverseJoinColumns = @JoinColumn(name = "id_gender"))
+    private List<Gender> movieGender = new ArrayList<>();
 
-    @Column(name = "id_gender", nullable = false)
-    private Long idGender;
+    public void addCharcterOnMovie(Charcter charcterAdded){
+        this.movieCharcters.add(charcterAdded);
+    }
+
+    public void removeCharcterFromMovie(Charcter charcterRemoved){
+        this.movieCharcters.remove(charcterRemoved);
+    }
+
+    public void addGenderOnMovie(Gender genderAdded){
+        this.movieGender.add(genderAdded);
+    }
+
+    public void removeGenderFromMovie(Gender genderRemoved){
+        this.movieGender.remove(genderRemoved);
+    }
 
 }

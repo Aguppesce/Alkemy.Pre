@@ -42,10 +42,10 @@ public class CharcterSpecification {
             }
 
             //Movies specification
-            if(!CollectionUtils.isEmpty(filtersDTO.getMovies())){
+            if(!CollectionUtils.isEmpty(filtersDTO.getCharcterMovies())){
                 Join<Movie, Charcter> join = root.join("movies", JoinType.INNER);
                 Expression<String> moviesId = join.get("id");
-                predicates.add(moviesId.in(filtersDTO.getMovies()));
+                predicates.add(moviesId.in(filtersDTO.getCharcterMovies()));
             }
 
             //Remove duplicates

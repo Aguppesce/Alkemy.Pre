@@ -53,12 +53,12 @@ public class CharcterServiceImpl implements CharcterService {
         entity.setWeight(dto.getWeight());
         Charcter entityUpdate = charcterRepository.save(entity);
         CharcterDTO result = charcterMapper.charcterEntity2DTO(entityUpdate,false);
-        return dto;
+        return result;
     }
 
     public void delete(Long id){this.charcterRepository.deleteById(id);}
 
-    public List<CharcterDTO> getByFilters(String name, Integer age, Set<Long> movies){
+    public List<CharcterDTO> getByFilters(String name, Byte age, Set<Long> movies){
         CharcterFiltersDTO filtersDTO = new CharcterFiltersDTO(name, age, movies);
         List<Charcter> entities = charcterRepository.findAll(charcterSpecification.getByFilters(filtersDTO));
         List<CharcterDTO> dtos = charcterMapper.charcterEntityList2DTOList(entities, true);
@@ -66,10 +66,10 @@ public class CharcterServiceImpl implements CharcterService {
     }
 
     public Charcter handleFindById(Long id){
-        Optional<Charcter> searchChar = charcterRepository.findById(id);
-        if(!searchChar.isPresent()) {
-            throw new ParamNotFound("Char id: " + id + " not found" );
+        Optional<Charcter> search = charcterRepository.findById(id);
+        if(!search.isPresent()) {
+            throw new ParamNotFound("Charcter id: " + id + " not found" );
         }
-        return searchChar.get();
+        return search.get();
     }
 }

@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class MovieMapper {
@@ -27,29 +28,24 @@ public class MovieMapper {
         entity.setImage(dto.getImage());
         entity.setCreateDate(this.string2LocalDate(dto.getCreateDate()));
         entity.setCalification(dto.getCalification());
-        entity.setIdGender(dto.getIdGender());
         return entity;
     }
 
-    public MovieDTO movieEntity2DTO(Movie entity, boolean chargeCharcter){
+    public MovieDTO movieEntity2DTO(Movie entity, boolean charge){
         MovieDTO dto = new MovieDTO();
         dto.setTitle(entity.getTitle());
         dto.setImage(entity.getImage());
         dto.setCreateDate(this.localDateToString(entity.getCreateDate()));
         dto.setCalification(entity.getCalification());
-        dto.setIdGender(entity.getIdGender());
-        if(chargeCharcter){
-            dto.setCharcters(charcterMapper.charcterEntityList2DTOList(entity.getCharcters(),false));
+        if(charge){
+            dto.setMovieCharcters(charcterMapper.charcterEntityList2DTOList(entity.getMovieCharcters(),false));
+            dto.setMovieGenders(genderMapper.genderEntityList2DTOList(entity.getMovieGender(),false));
         }
         return dto;
     }
 
-    public List<MovieDTO> movieEntityList2DTOList(List<Movie> movies, boolean chargeMovie){
-        List<MovieDTO> dtos = new ArrayList<>();
-        for(Movie entity: movies){
-            dtos.add(this.movieEntity2DTO(entity, chargeMovie));
-        }
-        return dtos;
+    public List<MovieDTO> movieEntityList2DTOList(List<Movie> entities, boolean chargeMovie){
+        return entities.stream().map(entity -> movieEntity2DTO(entity, false)).collect(Collectors.toList());
     }
 
     public MovieBasicDTO movieEntity2BasicDTO(Movie entity){

@@ -3,6 +3,7 @@ package com.alkemy.disney.disney.auth.service;
 import com.alkemy.disney.disney.auth.entity.User;
 import com.alkemy.disney.disney.auth.repository.UserRepository;
 import com.alkemy.disney.disney.auth.dto.UserDTO;
+import com.alkemy.disney.disney.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

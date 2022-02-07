@@ -6,8 +6,8 @@ import com.alkemy.disney.disney.entity.Charcter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class CharcterMapper {
@@ -25,17 +25,7 @@ public class CharcterMapper {
         return entity;
     }
 
-    public Charcter updateCharcterDTO2Entity(Charcter entity, CharcterDTO dto){
-        entity.setName(dto.getName());
-        entity.setImage(dto.getImage());
-        entity.setAge(dto.getAge());
-        entity.setWeight(dto.getWeight());
-        entity.setHistory(dto.getHistory());
-
-        return entity;
-    }
-
-    public CharcterDTO charcterEntity2DTO(Charcter entity, boolean chargeMovies){
+    public CharcterDTO charcterEntity2DTO(Charcter entity, boolean charge){
         CharcterDTO dto = new CharcterDTO();
         dto.setId(entity.getId());
         dto.setName(entity.getName());
@@ -43,18 +33,14 @@ public class CharcterMapper {
         dto.setImage(entity.getImage());
         dto.setHistory(entity.getHistory());
         dto.setWeight(entity.getWeight());
-        if(chargeMovies){
-            dto.setMovies(movieMapper.movieEntityList2DTOList(entity.getMovies(), false));
+        if(charge){
+            dto.setCharcterMovies(movieMapper.movieEntityList2DTOList(entity.getCharctersMovies(), false));
         }
         return dto;
     }
 
-    public List<CharcterDTO> charcterEntityList2DTOList(List<Charcter> entities, boolean chargeMovies){
-        List<CharcterDTO> dtos = new ArrayList<>();
-        for(Charcter entity: entities){
-            dtos.add(charcterEntity2DTO(entity, chargeMovies));
-        }
-        return dtos;
+    public List<CharcterDTO> charcterEntityList2DTOList(List<Charcter> entities, boolean charge){
+        return entities.stream().map(entity -> charcterEntity2DTO(entity, false)).collect(Collectors.toList());
     }
 
     public CharcterBasicDTO charcterEntity2BasicDTO(Charcter entity){
@@ -66,10 +52,6 @@ public class CharcterMapper {
     }
 
     public List<CharcterBasicDTO> charcterEntityList2BasicDTOList(List<Charcter> entities){
-        List<CharcterBasicDTO> basicDTOS = new ArrayList<>();
-        for(Charcter entity: entities){
-            basicDTOS.add(charcterEntity2BasicDTO(entity));
-        }
-        return basicDTOS;
+        return entities.stream().map(entity -> charcterEntity2BasicDTO(entity)).collect(Collectors.toList());
     }
 }

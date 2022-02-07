@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Set;
 
 @RestController
-@RequestMapping("charcters")
+@RequestMapping("/charcters")
 public class CharcterController {
 
     @Autowired
@@ -50,7 +50,7 @@ public class CharcterController {
     @GetMapping("/filters")
     public ResponseEntity<List<CharcterDTO>> getDetailsByFilters(
             @RequestParam(required = false) String name,
-            @RequestParam(required = false) Integer age,
+            @RequestParam(required = false) Byte age,
             @RequestParam(required = false) Set<Long> movies
     ){
         List<CharcterDTO> charcters = this.charcterService.getByFilters(name, age, movies);

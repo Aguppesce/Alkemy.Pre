@@ -14,8 +14,8 @@ public class MovieDTO {
     private String image;
     private String title;
     private String createDate;
-    private Integer calification;
-    private List<CharcterDTO> charcters;
-    private Long idGender;
+    private Byte calification;
+    private List<CharcterDTO> movieCharcters;
+    private List<GenderDTO> movieGenders;
 
 }
