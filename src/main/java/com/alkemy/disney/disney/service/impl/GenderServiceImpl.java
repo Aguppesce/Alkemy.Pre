@@ -42,8 +42,8 @@ public class GenderServiceImpl implements GenderService {
         entitySave.setImage(dto.getImage());
         entitySave.setName(dto.getName());
         Gender entityUpdate = genderRepository.save(entitySave);
-        dto.setGenderMovies(entitySave.getGenderMovies());
-        return dto;
+        GenderDTO result = genderMapper.genderEntity2DTO(entityUpdate, false);
+        return result;
     }
 
     public GenderDTO getGenderById(Long id){

@@ -23,8 +23,8 @@ public class EmailServiceImpl implements EmailService {
 
     @Value("{alkemy.disney.email.sender}")
     private String emailSender;
-    @Value("${alkemy.disney.email.enabled")
-    private boolean enabled;
+    @Value("${alkemy.disney.email.enabled}")
+    private Boolean enabled;
 
     public void sendWelcomeEmailTo(String to) {
         if(!enabled) {
@@ -45,7 +45,7 @@ public class EmailServiceImpl implements EmailService {
         Request request = new Request();
         try {
             request.setMethod(Method.POST);
-            request.setEndpoint("mail/sned");
+            request.setEndpoint("mail/send");
             request.setBody(mail.build());
             Response response = sg.api(request);
 

@@ -13,6 +13,7 @@ public class GenderDTO {
     private Long id;
     private String name;
     private String image;
-    private List<Movie> genderMovies;
+    private boolean deleted = Boolean.FALSE;
+    private List<MovieDTO> genderMovies;
 
 }

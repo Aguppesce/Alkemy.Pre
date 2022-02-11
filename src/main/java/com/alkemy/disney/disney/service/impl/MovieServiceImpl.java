@@ -2,6 +2,7 @@ package com.alkemy.disney.disney.service.impl;
 
 import com.alkemy.disney.disney.dto.MovieDTO;
 import com.alkemy.disney.disney.dto.MovieFiltersDTO;
+import com.alkemy.disney.disney.entity.Charcter;
 import com.alkemy.disney.disney.entity.Gender;
 import com.alkemy.disney.disney.entity.Movie;
 import com.alkemy.disney.disney.exception.ParamNotFound;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class MovieServiceImpl implements MovieService {
@@ -37,20 +39,22 @@ public class MovieServiceImpl implements MovieService {
         return result;
     }
 
-    public void saveCharcterOnMovie(Long idMovie, Long idCharcter){
-        Movie saveMovie = this.handleFindById(idMovie);
-        Character saveCharcter = charcterService.handleFindById(idCharcter);
-        saveMovie.getMovieCharcters().size();
-        saveMovie.saveCharcterOnMovie(saveCharcter);
-        movieRepository.save(saveMovie);
+    public void addCharcterOnMovie(Long idMovie, Long idCharcter){
+        Movie movieSave = this.handleFindById(idMovie);
+        Charcter charcterSave = charcterService.handleFindById(idCharcter);
+        movieSave.getMovieCharcters().size();
+        movieSave.addCharcterOnMovie(charcterSave);
+        movieRepository.save(movieSave);
     }
 
-    public void saveGenderOnMovie(Long idMovie, Long idGender) {
-        Movie saveMovie = this.handleFindById(idMovie);
-        Gender saveGender = genderService.handleFindById(idGender);
-        saveMovie.saveGenderOnMovie(saveGender);
-        movieRepository.save(saveMovie);
+    public void addGenderOnMovie(Long idMovie, Long idGender){
+        Movie movieSave = this.handleFindById(idMovie);
+        Gender genderSave = genderService.handleFindById(idGender);
+        movieSave.getMovieGender().size();
+        movieSave.addGenderOnMovie(genderSave);
+        movieRepository.save(movieSave);
     }
+
     public List<MovieDTO> getAllMovies(){
         List<Movie> entities = movieRepository.findAll();
         List<MovieDTO> result = movieMapper.movieEntityList2DTOList(entities, false);
@@ -76,8 +80,8 @@ public class MovieServiceImpl implements MovieService {
 
     public void delete(Long id){this.movieRepository.deleteById(id);}
 
-    public List<MovieDTO> getByFilters(String title, Long idGender, String order){
-        MovieFiltersDTO filtersDTO = new MovieFiltersDTO(title, idGender, order);
+    public List<MovieDTO> getByFilters(String title, Set<Long> gender, String order){
+        MovieFiltersDTO filtersDTO = new MovieFiltersDTO(title, gender, order);
         List<Movie> entities = movieRepository.findAll(movieSpecification.getByFilters(filtersDTO));
         List<MovieDTO> dtos = movieMapper.movieEntityList2DTOList(entities, true);
         return dtos;

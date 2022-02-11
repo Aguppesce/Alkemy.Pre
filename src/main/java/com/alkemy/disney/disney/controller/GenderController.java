@@ -18,7 +18,7 @@ public class GenderController {
     @Autowired
     private GenderService genderService;
 
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<GenderDTO>> getAllGender(){
         List<GenderDTO> genders = this.genderService.getAllGenders();
         return ResponseEntity.ok().body(genders);

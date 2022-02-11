@@ -45,7 +45,11 @@ public class MovieMapper {
     }
 
     public List<MovieDTO> movieEntityList2DTOList(List<Movie> entities, boolean chargeMovie){
-        return entities.stream().map(entity -> movieEntity2DTO(entity, false)).collect(Collectors.toList());
+        List<MovieDTO> dtos = new ArrayList<>();
+        for(Movie entity: entities){
+            dtos.add(this.movieEntity2DTO(entity,chargeMovie));
+        }
+        return dtos;
     }
 
     public MovieBasicDTO movieEntity2BasicDTO(Movie entity){

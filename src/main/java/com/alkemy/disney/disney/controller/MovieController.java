@@ -18,16 +18,10 @@ public class MovieController {
     @Autowired
     private MovieService movieService;
 
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<MovieDTO>> getAll(){
-        List<MovieDTO> movies = this.movieService.getAllMovies();
+        List<MovieDTO> movies = movieService.getAllMovies();
         return ResponseEntity.ok().body(movies);
-    }
-
-    @GetMapping("/allBasic")
-    public ResponseEntity<List<MovieBasicDTO>> getBasicAll(){
-        List<MovieBasicDTO> moviesBasic = movieService.getBasicDTOList();
-        return ResponseEntity.ok().body(moviesBaisc);
     }
 
     @GetMapping("/details/{id}")
@@ -42,15 +36,15 @@ public class MovieController {
         return ResponseEntity.status(HttpStatus.CREATED).body(movieSave);
     }
 
-    @PostMapping("/{idMovie}/charcter/{idCharcter")
+    @PostMapping("/{idMovie}/charcter/{idCharcter}")
     public ResponseEntity<Void> saveChar(@PathVariable Long idMovie, @PathVariable Long idCharcter){
-        movieService.saveCharcterOnMovie(idMovie, idCharcter);
+        movieService.addCharcterOnMovie(idMovie, idCharcter);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PostMapping("/{idMovie}/gender/{idGender}")
     public ResponseEntity<Void> saveGender(@PathVariable Long idMovie, @PathVariable Long idGender){
-        movieService.saveGenderOnMovie(idMovie, idGender);
+        movieService.addGenderOnMovie(idMovie, idGender);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
@@ -69,10 +63,10 @@ public class MovieController {
     @GetMapping
     public ResponseEntity<List<MovieDTO>> getDetailsByFilters(
             @RequestParam(required = false) String title,
-            @RequestParam(required = false) Long idGender,
+            @RequestParam(required = false) Set<Long> gender,
             @RequestParam(required = false, defaultValue = "ASC") String order
     ){
-        List<MovieDTO> movies = movieService.getByFilters(title, idGender, order);
+        List<MovieDTO> movies = movieService.getByFilters(title, gender, order);
         return ResponseEntity.status(HttpStatus.OK).body(movies);
     }
 

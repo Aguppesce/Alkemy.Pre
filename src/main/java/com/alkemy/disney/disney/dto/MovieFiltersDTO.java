@@ -14,7 +14,7 @@ import java.util.Set;
 public class MovieFiltersDTO {
 
     private String title;
-    private Long idGender;
+    private Set<Long> gender;
     private String order;
 
     public boolean isASC() {

@@ -28,7 +28,7 @@ public class GenderMapper {
         dto.setName(entity.getName());
         dto.setImage(entity.getImage());
         if(charge){
-            dto.setGenderMovies(movieMapper.movieEntityList2DTOList(entity.getGenderMovies(), false));
+            dto.setGenderMovies(movieMapper.movieEntityList2DTOList(entity.getGenderMovies(),false));
         }
         return dto;
     }

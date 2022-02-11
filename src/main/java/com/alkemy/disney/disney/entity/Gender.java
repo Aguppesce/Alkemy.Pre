@@ -23,6 +23,6 @@ public class Gender {
 
     private Boolean deleted = Boolean.FALSE;
 
-    @ManyToMany(mappedBy = "gender", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "movieGender", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<Movie> genderMovies;
 }
